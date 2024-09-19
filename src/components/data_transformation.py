@@ -24,7 +24,7 @@ class DataTransformation:
     
     def clean_data(self, data):
         try:
-            df = pd.read_csv(data)
+            df = pd.read_csv(data, low_memory=False)
             year_corrections = {
             'DK Publishing Inc': 2000,
             'Gallimard': 2003

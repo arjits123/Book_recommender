@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 # import other libraries from other components
 from data_transformation import DataTransformation
-# from recommender import ModelTrainer
+from recommender import ModelTrainer
 
 # ML libraries
 import numpy as np # type: ignore
@@ -28,9 +28,8 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         try:
             # Create the df
-            movies = pd.read_csv('dataset/Books.csv')
+            movies = pd.read_csv('dataset/Books.csv', low_memory=False)
             ratings = pd.read_csv('dataset/Ratings.csv')
-            users = pd.read_csv('dataset/Users.csv')
 
             df = ratings.merge(movies, on='ISBN')
             logging.info('Data frame created')
@@ -58,5 +57,12 @@ if __name__ == "__main__":
     cleand_df = data_transformation.clean_data(raw_data_path)
 
     #Data transformation
-    data_transformation.initiate_data_transformation(new_df = cleand_df)
+    pv_table = data_transformation.initiate_data_transformation(new_df = cleand_df)
+
+    #Recommender System
+    recommender = ModelTrainer()
+    book_name = "The Da Vinci Code"
+    books = recommender.initiate_recommendation(book_name, pv_table)
+    for names in books:
+        print(names)
 
