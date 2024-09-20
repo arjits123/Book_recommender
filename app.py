@@ -5,7 +5,8 @@ import dill
 from src.components.recommender import ModelTrainer
 
 
-app = Flask(__name__)
+application = Flask(__name__)
+app = application
 
 #Popularity based recommender
 dic = pickle.load(open('pop.pkl', 'rb'))
@@ -36,7 +37,7 @@ def recommend_ui():
 def recommend():
     user_input = request.form.get('user_input')
     books = recommender.initiate_recommendation(book_name = user_input, pivot=pt)
-    return render_template('recommend.html', data = books)
+    return render_template('recommend.html', name = book_title, data = books )
 
 if __name__ == '__main__':
     app.run(debug = True)
