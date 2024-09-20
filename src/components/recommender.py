@@ -21,7 +21,7 @@ class ModelTrainer:
     
     def initiate_recommendation(self, book_name:str, pivot):
         try:
-            book_data = pd.read_csv('Notebook/dataset/Books.csv', low_memory=False)
+            book_data = pd.read_csv('notebook/dataset/Books.csv', low_memory=False)
             #Calculate the similarity score
             similarity_score = cosine_similarity(pivot)
 

@@ -28,8 +28,8 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         try:
             # Create the df
-            movies = pd.read_csv('Notebook/dataset/Books.csv', low_memory=False)
-            ratings = pd.read_csv('Notebook/dataset/Ratings.csv')
+            movies = pd.read_csv('notebook/dataset/Books.csv', low_memory=False)
+            ratings = pd.read_csv('notebook/dataset/Ratings.csv')
 
             df = ratings.merge(movies, on='ISBN')
             logging.info('Data frame created')
