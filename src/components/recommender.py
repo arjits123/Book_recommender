@@ -21,6 +21,7 @@ class ModelTrainer:
     
     def initiate_recommendation(self, book_name:str, pivot):
         try:
+            book_data = pd.read_csv('Notebook/dataset/Books.csv', low_memory=False)
             #Calculate the similarity score
             similarity_score = cosine_similarity(pivot)
 
@@ -35,11 +36,16 @@ class ModelTrainer:
             sorted_list = sorted(index_with_score, key=lambda x: x[1], reverse = True)
 
             #Get the top 5 recommendations
-            top_5_recommendation = sorted_list[1:6]
+            top_5_recommendation = sorted_list[1:5]
             recommendations = []
             for i in top_5_recommendation:
-                recommendations.append(pivot.index[i[0]])
-
+                items = []
+                temp_df = book_data[book_data['Book-Title'] == pivot.index[i[0]]]
+                items.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Title'].values))
+                items.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Author'].values))
+                items.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
+            
+                recommendations.append(items)
             logging.info('Recommnedations completed')
 
             return recommendations

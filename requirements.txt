@@ -2,5 +2,5 @@ pandas
 numpy
 scikit-learn
 dill
-Flask
+flask
 -e .

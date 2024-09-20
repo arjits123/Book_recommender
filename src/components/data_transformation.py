@@ -69,7 +69,7 @@ class DataTransformation:
             pt.fillna(0, inplace=True)
 
             #saving the pivot table object
-            save_obj(file_path=self.data_transformation_config.transformed_data_path, data_frame=pt)
+            save_obj(file_path = self.data_transformation_config.transformed_data_path, data_frame=pt)
             logging.info('Data Transformation completed ')
 
             return pt
